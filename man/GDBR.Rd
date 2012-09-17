@@ -56,8 +56,9 @@
   set.seed(123)
   genotype = matrix(rbinom(total*10, 2, 0.05), nrow=total, ncol=10)
 
-  # apply GDBR with 100 permutations
-  mygdbr = GDBR(phenotype, genotype, perm=100)
+  # apply GDBR with 50 permutations
+  # (it takes some time to run the permutations!)
+  mygdbr = GDBR(phenotype, genotype, perm=50)
   mygdbr
   }
 }

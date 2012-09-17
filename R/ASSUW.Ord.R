@@ -1,59 +1,50 @@
 ASSUW.Ord <-
 function(y, X, perm=100)
 {
-    ## checking argumetns
-    if (!is.vector(y) || mode(y) != "numeric")
-        stop("argument 'y' must be a numeric vector")
-	if (any(is.na(y))) 
-	    stop("Sorry =(   No missing data allowed in argument 'y' ")	
-    if (!all(y %in% c(0, 1)))
-        stop("Sorry =(   argument 'y' must contain only 0 and 1")
-    if(!is.matrix(X) & !is.data.frame(X))
-        stop("argument 'X' must be a matrix or data.frame")
-    if (nrow(X) != length(y))
-        stop("'X' and 'y' have different lengths")
-    if (!is.matrix(X)) X = as.matrix(X)
-    if (mode(perm) != "numeric" || length(perm) != 1
-            || perm < 0 || (perm %% 1) !=0)
+  ## checking arguments
+  Xy_perm = my_check(y, X, perm)
+  y = Xy_perm$y
+  X = Xy_perm$X
+  perm = Xy_perm$perm
+  
+  ## get U and V
+  getuv = my_getUV(y, X)
+  U = getuv$U
+  V = getuv$V
+  ## run score method
+  stat.assuw = my_assuw_method(U, V)
+  assuw.stat2 = stat.assuw[3]  # stat ordered
+  p2.assuw = stat.assuw[4]     # pval ordered
+  
+  ## permutations
+  perm.pval = NA
+  if (perm > 0)
+  {
+    p2.perm = rep(0, perm)
+    ymean = mean(y)	
+    for (i in 1:perm)
     {
-        warning("argument 'perm' incorrectly defined. Value perm=100 is used")
-        perm = 100
+      perm.sample = sample(1:length(y))
+      # center phenotype y
+      y.perm = y[perm.sample] - ymean
+      # get score vector
+      U.perm = colSums(y.perm * X, na.rm=TRUE)
+      perm.assuw = my_assuw_method(U.perm, V)
+      p2.perm[i] = perm.assuw[4]		
     }
-    ## get U and V
-    getuv = .getUV(y, X)
-    U = getuv$U
-    V = getuv$V
-    ## run score method
-	stat.assuw = .assuw.method(U, V)
-	assuw.stat2 = stat.assuw[3]  # stat ordered
-	p2.assuw = stat.assuw[4]     # pval ordered
-
-	## permutations
-	perm.pval = NA
-	if (perm > 0)
-	{
-        p2.perm = rep(0, perm)
-		ymean = mean(y)	
-        for (i in 1:perm)
-        {
- 	        perm.sample = sample(1:length(y))
-            # center phenotype y
-		    y.perm = y[perm.sample] - ymean
-            # get score vector
-            U.perm = colSums(y.perm * X, na.rm=TRUE)
-  	        perm.assuw = .assuw.method(U.perm, V)
-		    p2.perm[i] = perm.assuw[4]		
-	    }
-        # p-value 
-        perm.pval = sum(p2.perm < p2.assuw) / perm  # ordered
-	}
-	
-	## results
-	name = "ASSUW.Ord: Adaptive Weighted Sum of Squared Score (Ordered)"
-    arg.spec = c(sum(y), length(y)-sum(y), ncol(X), perm)
-	names(arg.spec) = c("controls", "cases", "variants", "n.perms")	
-    res = list(assuw.stat=assuw.stat2, perm.pval=perm.pval, args=arg.spec, name=name)
-	class(res) = "assoctest"
-	return(res)
+    # p-value 
+    perm.pval = sum(p2.perm < p2.assuw) / perm  # ordered
+  }
+  
+  ## results
+  name = "ASSUW.Ord: Adaptive Weighted Sum of Squared Score (Ordered)"
+  arg.spec = c(sum(y), length(y)-sum(y), ncol(X), perm)
+  names(arg.spec) = c("cases", "controls", "variants", "n.perms")	
+  res = list(assuw.stat = assuw.stat2, 
+             perm.pval = perm.pval, 
+             args = arg.spec, 
+             name = name)
+  class(res) = "assoctest"
+  return(res)
 }
 

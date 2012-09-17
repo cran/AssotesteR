@@ -11,11 +11,11 @@
   \tabular{ll}{
     Package: \tab AssotesteR\cr
     Type: \tab Package\cr
-    Version: \tab 0.1-1\cr
-    Date: \tab 2012-03-13\cr
+    Version: \tab 0.1-7\cr
+    Date: \tab 2012-09-17\cr
     Depends: \tab mvtnorm\cr
     License: \tab GPL (>= 3)\cr
-    URL: \tab https://sites.google.com/site/assotester \cr
+    URL: \tab http://www.gastonsanchez.com/assotester \cr
     LazyLoad: \tab yes\cr
 }
   The package contains several methods on testing for association between phenotype and genotype data with no covariates
@@ -26,7 +26,7 @@
   Maintainer: Gaston Sanchez <gaston.sanchez@berkeley.edu>
 }
 \references{
-  \url{https://sites.google.com/site/assotester}
+  \url{http://www.gastonsanchez.com/assotester}
 }
 \keyword{ package }
 
