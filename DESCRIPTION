@@ -1,16 +1,16 @@
 Package: AssotesteR
 Type: Package
 Title: Statistical Tests for Genetic Association Studies
-Version: 0.1-7
-Date: 2012-09-17
+Version: 0.1-10
+Date: 2013-12-29
 Author: Gaston Sanchez
-Maintainer: Gaston Sanchez <gaston.sanchez@berkeley.edu>
+Maintainer: Gaston Sanchez <gaston.stat@gmail.com>
 Depends: mvtnorm
 Description: R package with statistical tests and methods for genetic
-        association studies with emphasis on rare variants and binary
-        (dichotomous) traits
+    association studies with emphasis on rare variants and binary (dichotomous)
+    traits
 License: GPL (>= 3)
-URL: http://www.gastonsanchez.com/assotester
+URL: http://www.gastonsanchez.com
 LazyLoad: yes
 Collate: 'ASCORE.Ord.R' 'ASCORE.R' 'ASSU.Ord.R' 'ASSU.R' 'ASSUW.Ord.R'
         'ASSUW.R' 'ASUM.Ord.R' 'ASUM.R' 'AssotesteR-internal.R' 'BST.R'
@@ -20,6 +20,7 @@ Collate: 'ASCORE.Ord.R' 'ASCORE.R' 'ASSU.Ord.R' 'ASSU.R' 'ASSUW.Ord.R'
         'TTEST.R' 'UMINP.R' 'VT.R' 'WSS.R' 'WST.R' 'gdbr_IBS.R'
         'gdbr_wIBS.R' 'kernel_IBS.R' 'kernel_twowayx.R' 'kernel_wIBS.R'
         'my_check.R' 'print.assoctest.R'
-Packaged: 2012-09-17 22:29:33 UTC; gaston
+Packaged: 2013-12-18 21:54:01 UTC; Gaston
+NeedsCompilation: yes
 Repository: CRAN
-Date/Publication: 2012-09-18 06:23:56
+Date/Publication: 2013-12-19 00:09:14
